@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+<head>
+    <title>Sign up Page</title>
+</head>
+
+<body>
+<div id="content">
+    <div class="container mx-auto px-4 py-10">
+        <!-- 12-column grid -->
+        <div class="grid grid-cols-12">
+            <!-- Card: 6 cols wide, centered (col-start-4 col-span-6) -->
+            <div class="col-span-12 md:col-span-6 md:col-start-4">
+                <div class="rounded-2xl border-t-8 border-blue-800 bg-white shadow-sm
+                    dark:bg-gray-800 dark:border-t-blue-800 p-8">
+                    <!-- Heading -->
+                    <div th:replace="~{message :: messagebox}"></div>
+                    <div class="text-center mb-6">
+                        <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                            Sign up here
+                        </h1>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                            Start managing your contacts on cloud
+                        </p>
+                    </div>
+
+                    <!-- Form -->
+                    <form class="space-y-4"
+                          th:action="@{/signup}"
+                          th:method="post"
+                          th:object="${userForm}"
+                          novalidate
+                    >
+
+                        <!-- Username -->
+                        <div>
+                            <label for="username" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                Username
+                            </label>
+                            <input th:field="*{username}" id="username" type="text" required
+                                   class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400
+                            focus:outline-none focus:ring-2 focus:ring-gray-300
+                            dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:ring-gray-400 px-3 py-2"/>
+                            <p
+                                    th:if="${#fields.hasErrors('username')}"
+                                    th:errors="*{username}"
+                                    class="text-red-600 px-1 py-2"></p>
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                Email
+                            </label>
+                            <input th:field="*{email}" id="email" type="email" required
+                                   class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400
+                            focus:outline-none focus:ring-2 focus:ring-gray-300
+                            dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:ring-gray-400 px-3 py-2"/>
+                            <p
+                                    th:if="${#fields.hasErrors('email')}"
+                                    th:errors="*{email}"
+                                    class="text-red-600 px-1 py-2"></p>
+                        </div>
+
+                        <!-- Password + Confirm -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="password" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                    Password
+                                </label>
+                                <input th:field="*{password}" id="password" type="password" minlength="6" required
+                                       class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400
+                              focus:outline-none focus:ring-2 focus:ring-gray-300
+                              dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:ring-gray-400 px-3 py-2"/>
+                                <p
+                                        th:if="${#fields.hasErrors('password')}"
+                                        th:errors="*{password}"
+                                        class="text-red-600 px-1 py-2"></p>
+                            </div>
+
+                            <div>
+                                <label for="confirmPassword" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                    Confirm Password
+                                </label>
+                                <input th:field="*{confirmPassword}" id="confirmPassword" type="password" minlength="6" required
+                                       class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400
+                              focus:outline-none focus:ring-2 focus:ring-gray-300
+                              dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:ring-gray-400 px-3 py-2"/>
+                            </div>
+                            <p
+                                    th:if="${#fields.hasErrors('passwordMatching')}"
+                                    th:errors="*{passwordMatching}"
+                                    class="text-red-600 px-1 py-2">
+                            </p>
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <label for="phoneNumber" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                Phone No
+                            </label>
+                            <input th:field="*{phoneNumber}" id="phoneNumber" type="tel"
+                                   class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400
+                            focus:outline-none focus:ring-2 focus:ring-gray-300
+                            dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:ring-gray-400 px-3 py-2"/>
+                            <p
+                                    th:if="${#fields.hasErrors('phoneNumber')}"
+                                    th:errors="*{phoneNumber}"
+                                    class="text-red-600 px-1 py-2"></p>
+                        </div>
+
+                        <!-- About -->
+                        <div>
+                            <label for="about" class="block mb-1 text-sm font-semibold text-gray-800 dark:text-gray-200">
+                                About
+                            </label>
+                            <textarea th:field="*{about}" id="about" rows="3"
+                                      class="w-full rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-400
+                               focus:outline-none focus:ring-2 focus:ring-gray-300
+                               dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:focus:ring-gray-400 px-3 py-2"></textarea>
+                        </div>
+
+                        <!-- Register button -->
+                        <button type="submit"
+                                class="w-full rounded-lg px-4 py-2 font-medium
+                           bg-blue-700 text-white hover:bg-blue-800
+                           dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100
+                           focus:outline-none focus:ring-2 focus:ring-blue-700 dark:focus:ring-gray-400">
+                            Register
+                        </button>
+
+                        <!-- OR separator -->
+                        <div class="flex items-center gap-3">
+                            <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
+                            <span class="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">or</span>
+                            <div class="h-px flex-1 bg-gray-200 dark:bg-gray-700"></div>
+                        </div>
+
+                        <!-- Social buttons -->
+                        <!-- Social Login buttons -->
+                        <div class="space-y-3">
+
+                            <!-- Google -->
+                            <a th:href="@{/oauth2/authorization/google}"
+                               class="login-with-google-btn inline-flex items-center justify-center gap-2 w-full">
+                                <img src="https://www.svgrepo.com/show/355037/google.svg" class="h-5 w-5">
+                                <span class="font-bold">Login with Google</span>
+                            </a>
+
+                            <!-- GitHub -->
+                            <a th:href="@{/oauth2/authorization/github}"
+                               class="login-with-github-btn inline-flex items-center justify-center gap-2 w-full">
+                                <img src="https://www.svgrepo.com/show/475654/github-color.svg" class="h-5 w-5">
+                                <span>Login with GitHub</span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>console.log("Signup page loaded");</script>
+</body>
+</html>

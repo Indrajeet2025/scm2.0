@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+
+<head>
+    <title>Search Page</title>
+</head>
+
+<body>
+
+<div id="content">
+
+    <!-- Sidebar -->
+    <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="min-h-screen rounded-xl bg-white dark:bg-gray-800">
+
+        <!-- Header -->
+        <div class="mb-6 text-center pt-10">
+            <h1 class="text-5xl font-semibold dark:text-white">
+                Search Contacts
+            </h1>
+            <p class="mt-2 dark:text-gray-300">
+                Filter your contacts by Name, Phone or Email.
+            </p>
+        </div>
+
+        <!-- Contacts + Search -->
+        <div class="contacts_container border p-5">
+
+            <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+
+                <!-- Search Form -->
+                <form th:action="@{/user/contacts/search}" method="get">
+                    <div class="flex p-5 items-center justify-start flex-wrap gap-4">
+
+                        <!-- Field Select -->
+                        <div class="relative w-full md:w-60">
+                            <select
+                                    name="field"
+                                    id="field_select"
+                                    class="block w-full appearance-none px-4 pr-10 py-2.5 text-sm
+                                           bg-white dark:bg-gray-800 text-body
+                                           border border-default-medium rounded-lg
+                                           focus:border-brand focus:ring-1 focus:ring-brand
+                                           cursor-pointer">
+                                <option value="" th:selected="${field == null or field == ''}">Select Field</option>
+                                <option value="name" th:selected="${field == 'name'}">Name</option>
+                                <option value="phone" th:selected="${field == 'phone'}">Phone</option>
+                                <option value="email" th:selected="${field == 'email'}">Email</option>
+                            </select>
+
+                            <!-- Dropdown Arrow Icon -->
+                            <svg class="absolute top-1/2 right-3 w-4 h-4 text-body pointer-events-none -translate-y-1/2"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+
+                        <!-- Keyword + Button -->
+                        <div class="flex items-center gap-3">
+
+                            <!-- Keyword Input -->
+                            <div class="relative">
+                                <label for="input-group-1" class="sr-only">Search</label>
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-body" aria-hidden="true"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                              d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                                    </svg>
+                                </div>
+
+                                <input
+                                        name="keyword"
+                                        type="text"
+                                        id="input-group-1"
+                                        th:value="${keyword}"
+                                        class="block w-full max-w-96 ps-9 pe-3 py-2 bg-neutral-secondary-medium
+                                               border border-default-medium text-heading text-sm rounded-base
+                                               focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+                                        placeholder="Search">
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button
+                                    type="submit"
+                                    class="px-4 py-2 bg-gray-800 text-white rounded">
+                                Search
+                            </button>
+
+                        </div>
+
+                    </div>
+                </form>
+
+                <!-- Results Table -->
+                <table class="w-full text-sm text-left rtl:text-right text-body">
+                    <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-t border-default-medium">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            PHONE
+                        </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            LINKS
+                        </th>
+                        <th scope="col" class="px-6 py-3 font-medium">
+                            Action
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <!-- No results message -->
+                    <tr th:if="${pageContact == null or #lists.isEmpty(pageContact.content)}">
+                        <td colspan="4" class="px-6 py-4 text-center text-body">
+                            No contacts found
+                            <span th:if="${keyword != null and keyword != ''}">
+                                for "<span th:text="${keyword}"></span>"
+                            </span>.
+                        </td>
+                    </tr>
+
+                    <!-- Results -->
+                    <tr
+                            th:each="c : ${pageContact.content}"
+                            th:object="${c}"
+                            class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium">
+
+                        <th scope="row" class="flex items-center px-6 py-4 text-heading whitespace-nowrap">
+                            <img
+                                    th:onerror="this.src='/images/defaultProfile.jpg'"
+                                    th:src="@{*{picture}}"
+                                    class="w-10 h-10 rounded-full" alt="Contact image">
+                            <div class="ps-3">
+                                <div class="text-base font-semibold" th:text="*{name}">Neil Sims</div>
+                                <div class="font-normal text-body" th:text="*{email}">neil.sims@flowbite.com</div>
+                            </div>
+                        </th>
+                        <td class="px-6 py-4">
+                            <i class="fa-solid fa-phone w-4 h-4"></i>
+                            <span th:text="*{phoneNumber}"></span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-2">
+                                <div class="h-2.5 w-2.5 rounded-full bg-success me-2"></div>
+                                <a th:href="@{*{facebookLink}}"><i class="fa-brands fa-facebook"></i></a>
+                                <a th:href="@{*{linkedInLink}}"><i class="fa-brands fa-linkedin w-6 h-6"></i></a>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div>
+                                <a class="p-1"><i class="fa-solid w-6 h-6 fa-trash"></i></a>
+                                <a class="p-1"><i class="fa-solid w-6 h-6 fa-pen"></i></a>
+                                <a class="p-1"><i class="fa-solid w-6 h-6 fa-eye"></i></a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="pagination-container p-5 text-center" th:if="${pageContact != null}">
+                    <nav aria-label="Page navigation example">
+                        <ul class="flex justify-center -space-x-px text-sm">
+
+                            <!-- Previous -->
+                            <li th:unless="${pageContact.first}">
+                                <a th:href="@{/user/contacts/search(field=${field},keyword=${keyword},size=${pageSize},page=${pageContact.number - 1})}"
+                                   class="flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium rounded-s-base text-sm px-3 h-10 focus:outline-none">
+                                    Previous
+                                </a>
+                            </li>
+
+                            <!-- Page Numbers -->
+                            <li th:each="index : ${#numbers.sequence(0, pageContact.totalPages - 1)}">
+                                <a th:href="@{/user/contacts/search(field=${field},keyword=${keyword},size=${pageSize},page=${index})}"
+                                   th:classappend="${index==pageContact.number?' bg-blue-100 dark:bg-gray-700':' bg-white dark:bg-gray-700'}"
+                                   class="flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium text-sm w-10 h-10 focus:outline-none">
+                                    <span th:text="${index + 1}"></span>
+                                </a>
+                            </li>
+
+                            <!-- Next -->
+                            <li th:unless="${pageContact.last}">
+                                <a th:href="@{/user/contacts/search(field=${field},keyword=${keyword},size=${pageSize},page=${pageContact.number + 1})}"
+                                   class="flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading font-medium rounded-e-base text-sm px-3 h-10 focus:outline-none">
+                                    Next
+                                </a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    console.log("This is search page");
+</script>
+
+</body>
+</html>

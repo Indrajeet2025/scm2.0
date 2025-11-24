@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+<head>
+    <title>About | SCM</title>
+</head>
+<body>
+<div id="content">
+
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+
+        <div class="w-full grid grid-cols-12 px-4 py-10">
+
+            <!-- Centered main column (8 cols on md+, 2-2 side gap) -->
+            <div class="col-span-12 md:col-span-8 md:col-start-3 space-y-8">
+
+                <!-- HERO SECTION -->
+                <section class="rounded-2xl border border-gray-200 bg-white shadow-sm
+                                dark:bg-gray-800 dark:border-gray-700 p-6 md:p-8">
+                    <p class="text-xs font-semibold tracking-wide uppercase text-blue-600 dark:text-blue-400">
+                        About
+                    </p>
+                    <h1 class="mt-2 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+                        Smart Contact Manager (SCM)
+                    </h1>
+                    <p class="mt-3 text-sm md:text-base text-gray-600 dark:text-gray-300">
+                        Smart Contact Manager (SCM) is a simple, powerful, and secure web application
+                        designed to help you store, organize, and manage your contacts from anywhere.
+                        It’s built with a modern tech stack and a clean, distraction-free interface so
+                        you can focus on what matters: your network.
+                    </p>
+                </section>
+
+                <!-- FEATURE GRID -->
+                <section class="grid gap-4 md:grid-cols-3">
+
+                    <!-- Card 1 -->
+                    <div class="rounded-2xl border border-gray-200 bg-white shadow-sm
+                                dark:bg-gray-800 dark:border-gray-700 p-4
+                                hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
+                        <div class="text-2xl mb-2">📇</div>
+                        <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                            Centralized Contacts
+                        </h2>
+                        <p class="mt-1 text-xs text-gray-600 dark:text-gray-300">
+                            Store all your personal and professional contacts in one secure place
+                            with quick access and smart organization.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="rounded-2xl border border-gray-200 bg-white shadow-sm
+                                dark:bg-gray-800 dark:border-gray-700 p-4
+                                hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
+                        <div class="text-2xl mb-2">🔐</div>
+                        <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                            Secure & Role Based
+                        </h2>
+                        <p class="mt-1 text-xs text-gray-600 dark:text-gray-300">
+                            Built using Spring Security with role-based access so only you can view
+                            and manage your contacts after logging in.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="rounded-2xl border border-gray-200 bg-white shadow-sm
+                                dark:bg-gray-800 dark:border-gray-700 p-4
+                                hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
+                        <div class="text-2xl mb-2">🌗</div>
+                        <h2 class="text-sm font-semibold text-gray-900 dark:text-white">
+                            Light & Dark Mode
+                        </h2>
+                        <p class="mt-1 text-xs text-gray-600 dark:text-gray-300">
+                            A modern UI with full light & dark theme support so it feels comfortable
+                            to use day or night.
+                        </p>
+                    </div>
+
+                </section>
+
+                <!-- TECH STACK / HOW IT’S BUILT -->
+                <section class="rounded-2xl border border-gray-200 bg-white shadow-sm
+                                dark:bg-gray-800 dark:border-gray-700 p-6 md:p-7 space-y-4">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+                        How it’s built
+                    </h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        SCM is a learning-friendly project as well as a practical tool. It combines
+                        backend and frontend technologies that are widely used in real-world
+                        enterprise applications.
+                    </p>
+
+                    <div class="grid gap-3 md:grid-cols-2 text-sm">
+                        <div class="space-y-1">
+                            <p class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+                                Backend
+                            </p>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-200 text-xs md:text-sm">
+                                <li>Java + Spring Boot</li>
+                                <li>Spring Security for authentication</li>
+                                <li>JPA / Hibernate for database access</li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-1">
+                            <p class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+                                Frontend & UI
+                            </p>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-200 text-xs md:text-sm">
+                                <li>Thymeleaf templating engine</li>
+                                <li>Tailwind CSS for styling</li>
+                                <li>Flowbite & Font Awesome for components/icons</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SMALL INFO / CTA -->
+                <section class="rounded-2xl border border-dashed border-gray-300
+                                bg-gray-50 dark:bg-gray-800/60 dark:border-gray-700
+                                p-4 flex flex-col md:flex-row items-start md:items-center
+                                justify-between gap-3">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                            What can you do with SCM?
+                        </p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-0.5">
+                            Add new contacts, update existing ones, and search quickly whenever you need them.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <a th:href="@{'/user/contacts/add'}"
+                           class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium
+                                  bg-blue-600 text-white hover:bg-blue-700">
+                            ➕ Add Contact
+                        </a>
+                        <a th:href="@{'/user/contacts/view'}"
+                           class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium
+                                  border border-gray-300 text-gray-800 hover:bg-gray-100
+                                  dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-800">
+                            📚 View All Contacts
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    console.log("About page loaded");
+</script>
+</body>
+</html>

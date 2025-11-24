@@ -1,0 +1,130 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="contact">
+
+    <!-- Main modal -->
+    <div id="view_contact_modal"
+         tabindex="-1"
+         aria-hidden="true"
+         class="hidden fixed inset-0 z-50 bg-black/40
+                overflow-y-auto overflow-x-hidden
+                justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white dark:bg-gray-800 border border-default rounded-base shadow-sm p-6 md:p-8">
+
+                <!-- Modal header -->
+                <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                    <div class="flex items-center gap-3">
+                        <img id="contact_image"
+                             src="/images/defaultProfile.jpg"
+                             alt="Contact image"
+                             class="w-12 h-12 rounded-full object-cover border border-default">
+                        <div>
+                            <h3 id="contact_name" class="text-lg font-semibold text-heading dark:text-white">
+                                Contact Name
+                            </h3>
+                            <p id="contact_tagline" class="text-sm text-body dark:text-gray-300">
+                                Contact details overview
+                            </p>
+                        </div>
+                    </div>
+
+                    <button type="button"
+                            class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center"
+                            onclick="closeContactModal()">
+                        <svg class="w-5 h-5" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                             fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M6 18 17.94 6M18 18 6.06 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="py-4 md:py-6 space-y-4">
+
+                    <!-- Email -->
+                    <p class="flex items-start gap-3 leading-relaxed text-body dark:text-gray-200">
+                        <i class="fa-solid fa-envelope mt-1"></i>
+                        <span>
+                            <span class="font-semibold">Email:</span>
+                            <span id="contact_email" class="ml-1 break-all">not available</span>
+                        </span>
+                    </p>
+
+                    <!-- Phone -->
+                    <p class="flex items-start gap-3 leading-relaxed text-body dark:text-gray-200">
+                        <i class="fa-solid fa-phone mt-1"></i>
+                        <span>
+                            <span class="font-semibold">Phone:</span>
+                            <span id="contact_phone" class="ml-1">not available</span>
+                        </span>
+                    </p>
+
+                    <!-- Address -->
+                    <p class="flex items-start gap-3 leading-relaxed text-body dark:text-gray-200">
+                        <i class="fa-solid fa-location-dot mt-1"></i>
+                        <span>
+                            <span class="font-semibold">Address:</span>
+                            <span id="contact_address" class="ml-1">not available</span>
+                        </span>
+                    </p>
+
+                    <!-- Description / Notes -->
+                    <p class="flex items-start gap-3 leading-relaxed text-body dark:text-gray-200">
+                        <i class="fa-solid fa-note-sticky mt-1"></i>
+                        <span>
+                            <span class="font-semibold">Notes:</span>
+                            <span id="contact_description" class="ml-1">
+                                —
+                            </span>
+                        </span>
+                    </p>
+
+                    <!-- Social links -->
+                    <div class="flex items-center gap-4 pt-2">
+                        <a id="contact_facebook"
+                           href="#"
+                           target="_blank"
+                           class="inline-flex items-center gap-2 text-sm text-body hover:text-blue-600"
+                           rel="noopener noreferrer">
+                            <i class="fa-brands fa-facebook text-lg"></i>
+                            <span>Facebook</span>
+                        </a>
+
+                        <a id="contact_linkedin"
+                           href="#"
+                           target="_blank"
+                           class="inline-flex items-center gap-2 text-sm text-body hover:text-sky-700"
+                           rel="noopener noreferrer">
+                            <i class="fa-brands fa-linkedin text-lg"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="flex items-center justify-between border-t border-default pt-4 md:pt-5">
+                    <div class="flex items-center gap-2 text-sm">
+                        <i id="contact_favorite_icon" class="fa-regular fa-star text-yellow-400"></i>
+                        <span id="contact_favorite_text" class="text-body dark:text-gray-200">
+                            Not marked as favourite
+                        </span>
+                    </div>
+
+                    <button type="button"
+                            class="text-body bg-neutral-secondary-medium box-border border border-default-medium
+                                   hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4
+                                   focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base
+                                   text-sm px-4 py-2.5 focus:outline-none"
+                            onclick="closeContactModal()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

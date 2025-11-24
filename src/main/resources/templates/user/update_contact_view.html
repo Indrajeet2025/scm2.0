@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+
+<head>
+    <title >Update Contact</title>
+</head>
+
+<body>
+
+<div id="content">
+
+    <!-- Sidebar -->
+    <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col items-start justify-start bg-gray-100 dark:bg-gray-900">
+
+        <div class="w-full grid grid-cols-12 px-4 py-6">
+            <div class="col-span-12 md:col-span-6 md:col-start-4 rounded-xl bg-white dark:bg-gray-800 p-6
+                        border-t-8 border-blue-800 dark:border-t-blue-800 shadow-sm">
+
+                <!-- Header card -->
+                <div class="block bg-neutral-primary-soft p-6 pt-1 rounded-base shadow-xs mb-6">
+                    <div th:replace="message::messagebox">
+
+                    </div>
+                    <h1 class="text-3xl font-semibold mb-1">Update Contact</h1>
+                </div>
+
+                <!-- Form -->
+                <form th:action="@{/user/contacts/update/{cid}(cid=${cid})}"
+                      th:object="${contactForm}"
+                      method="post"
+                      enctype="multipart/form-data"
+                      class="space-y-5">
+
+                    <!-- Full Name -->
+                    <div>
+                        <label for="name" class="block mb-2.5 text-sm font-medium text-gray-800 dark:text-gray-200">
+                            Full Name
+                        </label>
+
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4 0-7 2-7 4v1h14v-1c0-2-3-4-7-4Z"/>
+                                </svg>
+                            </div>
+
+                            <input th:field="*{name}" type="text" id="name"
+                                   class="block w-full ps-9 pe-3 py-2.5 bg-white text-gray-900 border border-gray-300
+                                          rounded-lg placeholder-gray-400 shadow-xs focus:outline-none focus:ring-2
+                                          focus:ring-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+                                          dark:placeholder-gray-400 dark:focus:ring-gray-400"
+                                   placeholder="Enter full name">
+                        </div>
+
+                        <!-- Validation error -->
+                        <p th:if="${#fields.hasErrors('name')}"
+                           th:errors="*{name}"
+                           class="text-red-600 text-sm mt-1"></p>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block mb-2.5 text-sm font-medium text-heading">
+                            Email
+                        </label>
+
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-body dark:text-gray-400" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                          d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+                                </svg>
+                            </div>
+
+                            <input th:field="*{email}" type="email" id="email"
+                                   class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium
+                                          border border-default-medium text-heading text-sm rounded-base
+                                          focus:ring-brand focus:border-brand shadow-xs placeholder:text-body
+                                          dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+                                          dark:placeholder-gray-400 dark:focus:ring-gray-400"
+                                   placeholder="name@example.com">
+                        </div>
+
+                        <!-- Validation error -->
+                        <p th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}"
+                           class="text-red-600 text-sm mt-1"></p>
+                    </div>
+
+                    <!-- Phone -->
+                    <div>
+                        <label for="phone" class="block mb-2.5 text-sm font-medium text-heading">
+                            Phone Number
+                        </label>
+
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-body dark:text-gray-400" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                     viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M6.5 3h3l1 4-2 1a11.04 11.04 0 0 0 4 4l1-2 4 1v3a2 2 0 0 1-2 2A13 13 0 0 1 5 7a2 2 0 0 1 1.5-4Z"/>
+                                </svg>
+                            </div>
+
+                            <input th:field="*{phoneNumber}" type="text" id="phone"
+                                   class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium
+                                          border border-default-medium text-heading text-sm rounded-base
+                                          focus:ring-brand focus:border-brand shadow-xs placeholder:text-body
+                                          dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+                                          dark:placeholder-gray-400 dark:focus:ring-gray-400"
+                                   placeholder="Enter phone number">
+                        </div>
+
+                        <!-- Validation error -->
+                        <p th:if="${#fields.hasErrors('phoneNumber')}"
+                           th:errors="*{phoneNumber}"
+                           class="text-red-600 text-sm mt-1"></p>
+                    </div>
+
+                    <!-- Address -->
+                    <div>
+                        <label for="address" class="block mb-2.5 text-sm font-medium text-heading">
+                            Address
+                        </label>
+
+                        <textarea th:field="*{address}" id="address" rows="2"
+                                  class="block w-full px-3 py-2.5 bg-neutral-secondary-medium
+                                         border border-default-medium text-heading text-sm rounded-base
+                                         focus:ring-brand focus:border-brand shadow-xs placeholder:text-body
+                                         dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+                                         dark:placeholder-gray-400 dark:focus:ring-gray-400"
+                                  placeholder="Enter address"></textarea>
+
+                        <!-- Validation error -->
+                        <p th:if="${#fields.hasErrors('address')}"
+                           th:errors="*{address}"
+                           class="text-red-600 text-sm mt-1"></p>
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label for="description" class="block mb-2.5 text-sm font-medium text-heading">
+                            Notes / Description
+                        </label>
+
+                        <textarea th:field="*{description}" id="description" rows="3"
+                                  class="block w-full px-3 py-2.5 bg-neutral-secondary-medium
+                                         border border-default-medium text-heading text-sm rounded-base
+                                         focus:ring-brand focus:border-brand shadow-xs placeholder:text-body
+                                         dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+                                         dark:placeholder-gray-400 dark:focus:ring-gray-400"
+                                  placeholder="Any extra details about this contact"></textarea>
+
+                        <!-- Validation error -->
+                        <p th:if="${#fields.hasErrors('description')}"
+                           th:errors="*{description}"
+                           class="text-red-600 text-sm mt-1"></p>
+                    </div>
+
+                    <!-- Social links -->
+                    <div class="flex gap-1">
+
+                        <!-- Facebook -->
+                        <div class="w-full">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </div>
+
+                                <input th:field="*{facebookLink}" type="text"
+                                       class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium
+                                              text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs
+                                              dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+                                              dark:placeholder-gray-400 dark:focus:ring-gray-400"
+                                       placeholder="https://www.facebook.com/">
+                            </div>
+
+                            <!-- Validation error -->
+                            <p th:if="${#fields.hasErrors('facebookLink')}"
+                               th:errors="*{facebookLink}"
+                               class="text-red-600 text-sm mt-1"></p>
+                        </div>
+
+                        <!-- LinkedIn -->
+                        <div class="w-full">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </div>
+
+                                <input th:field="*{linkedInLink}" type="text"
+                                       class="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium
+                                              text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs
+                                              dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600
+                                              dark:placeholder-gray-400 dark:focus:ring-gray-400"
+                                       placeholder="https://www.linkedin.com/">
+                            </div>
+
+                            <!-- Validation error -->
+                            <p th:if="${#fields.hasErrors('linkedInLink')}"
+                               th:errors="*{linkedInLink}"
+                               class="text-red-600 text-sm mt-1"></p>
+                        </div>
+                    </div>
+
+                    <!-- Picture -->
+                    <label class="block mb-2.5 text-sm font-medium text-heading" for="file_input">
+                        Contact image
+                    </label>
+
+                    <input th:field="*{contactImage}"
+                           class="cursor-pointer bg-neutral-secondary-medium border border-default-medium
+                                  text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full shadow-xs"
+                           id="contactImageInput" type="file">
+
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">
+                        SVG, PNG, JPG, GIF. Max 800x400px.
+                    </p>
+                    <img
+                            th:src="*{picture}"
+                            id="upload_image_preview"
+                            alt="Preview"
+                            class="max-h-52 mx-auto rounded-lg shadow">
+
+                    <!-- Validation error -->
+                    <p th:if="${#fields.hasErrors('contactImage')}"
+                       th:errors="*{contactImage}"
+                       class="text-red-600 text-sm mt-1"></p>
+
+                    <!-- Submit button -->
+                    <div class="button-container text-center">
+                        <button type="submit"
+                                class="rounded-lg px-4 py-2 font-medium bg-blue-700 text-white hover:bg-blue-800
+                                       dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100
+                                       focus:outline-none focus:ring-2 focus:ring-blue-700 dark:focus:ring-gray-400">
+                           Update
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script th:src="@{'/js/admin.js'}">
+
+</script>
+<script>
+    console.log("This is profile page");
+</script>
+
+</body>
+</html>

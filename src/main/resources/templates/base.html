@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="parent(content, pageTitle, pageScript)">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title th:replace="${pageTitle}">SCM</title>
+
+    <!-- Tailwind build -->
+    <link rel="stylesheet" th:href="@{/css/output.css}" />
+
+    <!-- Flowbite -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+
+<!-- ========= Logged-in UI (Navbar + Sidebar) ========= -->
+
+
+<div th:if="${loggedInUser}">
+    <div th:replace="~{user/user_navbar :: user-navbar}"></div>
+<!--    <div th:replace="~{user/sidebar :: sidebar}"></div>-->
+</div>
+
+<!-- ========= Public Navbar (not logged in) ========= -->
+<div th:unless="${loggedInUser}">
+    <div th:replace="~{navbar :: navbar}"></div>
+</div>
+
+<!-- ========= Main Page Content ========= -->
+<div class="transition-all"
+     th:classappend="${loggedInUser} ? ' sm:ml-64 pt-16' : ''">
+
+    <main class="p-4">
+        <section class="max-w-screen-xl mx-auto p-4" th:replace="${content}"></section>
+    </main>
+
+</div>
+
+<!-- ========= Scripts ========= -->
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:src="@{/js/script.js}"></script>
+
+<span th:replace="${pageScript}"></span>
+
+</body>
+</html>

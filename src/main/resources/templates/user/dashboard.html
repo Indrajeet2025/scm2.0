@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::#content}, ~{::title}, ~{::script})}">
+
+<head>
+    <title th:text="${loggedInUser.name} + ' | SCM'">Dashboard Page</title>
+</head>
+
+<body>
+
+<div id="content">
+
+    <!-- Sidebar (auto handled by base layout, but keep if needed) -->
+    <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+    </div>
+
+    <!-- Main Profile Content Container -->
+    <div class=" min-h-screen flex flex-col items-center justify-start
+               rounded-xl bg-white dark:bg-gray-800">
+        <h1 class="text-5xl font-semibold mt-10 dark:text-white">
+            Welcome to Dashboard page
+        </h1>
+        <p class="mt-2 dark:text-gray-300">
+            qwertoighnvcmdskeoritujhgfndm
+        </p>
+    </div>
+</div>
+
+<script>
+    console.log("This is profile page");
+</script>
+
+</body>
+</html>
